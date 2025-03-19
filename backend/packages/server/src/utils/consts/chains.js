@@ -45,6 +45,7 @@ const chains = Object.freeze({
   argon: "argon",
   cere: "cere",
   "cere-testnet": "cere-testnet",
+  commune: "commune",
 });
 
 const ss58Format = Object.freeze({
@@ -92,6 +93,7 @@ const ss58Format = Object.freeze({
   [chains["cere-testnet"]]: 54,
   [chains.argon]: 42,
   [chains.cere]: 54,
+  [chains.commune]: 42,
 });
 
 function getSs58Format(chain) {
