@@ -34,6 +34,7 @@ import argon from "./argon";
 import collectivesWestend from "./collectives-westend";
 import cereTestnet from "./cere-testnet";
 import cere from "./cere";
+import commune from "./commune";
 
 const chains = {
   polkadot,
@@ -74,6 +75,7 @@ const chains = {
   argon,
   cere,
   "cere-testnet": cereTestnet,
+  commune,
 };
 
 export default chains;
