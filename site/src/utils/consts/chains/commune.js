@@ -10,7 +10,7 @@ const nodes = [
 const commune = {
   name: "Commune",
   icon: <Commune />,
-  value: "comai",
+  value: "commune",
   symbol: "COMAI",
   decimals: 9,
   nodes,
