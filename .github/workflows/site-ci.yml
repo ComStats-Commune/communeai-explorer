@@ -1,69 +1,49 @@
-name: site ci
+name: Deploy to PROD Server
 
 on:
   push:
     branches:
       - main
-      - "release-*"
-    paths:
-      - "site/**"
-  pull_request:
-    branches:
-      - main
-      - "release-*"
-    paths:
-      - "site/**"
+  workflow_dispatch:
 
 jobs:
-  lint:
+  deploy:
     runs-on: ubuntu-latest
+    environment: cicd
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-
-      - name: setup node LTS
-        uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          node-version: lts/*
-          cache: yarn
-          cache-dependency-path: |
-            site/yarn.lock
+          fetch-depth: 0  
 
-      - name: install
-        uses: borales/actions-yarn@v4
+
+
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          cmd: install
-          dir: site
+          node-version: 20
+          cache: 'npm'
+          
+      - name: Install yarn 
+        run: npm install -g yarn
 
-      - name: lint
-        uses: borales/actions-yarn@v4
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build the project
+      
+        run: |
+          cd site
+          echo "${{ secrets.PROD_ENV }}" > .env
+          yarn build
+            
+      - name: Deploy SFTP files to ec2 server
+        uses: appleboy/scp-action@v0.1.7
         with:
-          cmd: lint
-          dir: site
-
-  build:
-    runs-on: ubuntu-latest
-    needs: [lint]
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-
-      - name: setup node LTS
-        uses: actions/setup-node@v3
-        with:
-          node-version: lts/*
-          cache: yarn
-          cache-dependency-path: |
-            site/yarn.lock
-
-      - name: install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
-          dir: site
-
-      - name: build
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build
-          dir: site
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.PROD_PRIVATE_KEY }}
+          source: "site/build"
+          target: ${{ secrets.PROD_DEPLOY_PATH }}
