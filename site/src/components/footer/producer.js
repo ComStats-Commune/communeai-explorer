@@ -1,14 +1,6 @@
 import styled from "styled-components";
 import { Flex } from "../styled/flex";
 import { Inter_14_500 } from "../../styles/text";
-import { PC } from "../styled/responsive";
-import { ReactComponent as Logo } from "./logo-opensquare.svg";
-
-const StyledLogo = styled(Logo)`
-  * {
-    fill: ${(p) => p.theme.fontTertiary};
-  }
-`;
 
 const Wrapper = styled(Flex)`
   flex-wrap: nowrap;
@@ -51,20 +43,7 @@ const Text = styled.p`
 export default function Producer() {
   return (
     <Wrapper>
-      <Text>{`© ${new Date().getFullYear()} Statescan Explorer`}</Text>
-      <PC>
-        <Text>·</Text>
-      </PC>
-      <div className="wrap-on-mobile">
-        <Text>Powered by</Text>
-        <a
-          href="https://www.opensquare.network/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <StyledLogo />
-        </a>
-      </div>
+      <Text>{`© ${new Date().getFullYear()} Comstats Explorer`}</Text>
     </Wrapper>
   );
 }
