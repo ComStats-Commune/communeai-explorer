@@ -11,10 +11,10 @@ export const mode = Object.freeze({
 export function getInitMode() {
   let result;
   try {
-    result = localStorage.getItem(CACHE_KEY.themeMode) ?? mode.light;
+    result = localStorage.getItem(CACHE_KEY.themeMode) ?? mode.dark;
   } catch (e) {
     // ignore parse error
-    result = mode.light;
+    result = mode.dark;
   }
 
   return result;

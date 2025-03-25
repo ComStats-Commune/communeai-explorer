@@ -1,9 +1,6 @@
 import styled, { css } from "styled-components";
-import { Inter_24_700 } from "../../../styles/text";
 import { Button } from "../../styled/buttons";
 import { Flex } from "../../styled/flex";
-import { useSelector } from "react-redux";
-import { chainSettingSelector } from "../../../store/reducers/settingSlice";
 import { smcss } from "../../../styles/responsive";
 import ExploreInputOrigin from "./input";
 import { useRef } from "react";
@@ -33,17 +30,7 @@ const Wrapper = styled(Flex)`
   `)}
 `;
 
-const Title = styled.h1`
-  all: unset;
-  margin-bottom: 24px;
-  display: block;
-  ${Inter_24_700};
-  text-transform: capitalize;
-  color: ${(props) => props.theme.fontPrimary};
-`;
-
 export default function Explore() {
-  const settings = useSelector(chainSettingSelector);
   const exploreRef = useRef();
   const isDark = useIsDark();
 
@@ -52,8 +39,13 @@ export default function Explore() {
   }
 
   return (
-    <div>
-      <Title>{settings.name} Explorer</Title>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Wrapper style={{ gap: 16 }}>
         <ExploreInput ref={exploreRef} />
         <ExploreButton dark={isDark} onClick={handleExplore}>
