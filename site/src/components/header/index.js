@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { ReactComponent as Logo } from "./main-comstat.svg";
+import { ReactComponent as Logo } from "./logo.svg";
 import { Flex, FlexBetween } from "../styled/flex";
 import { Mobile, PC } from "../styled/responsive";
 import styled, { css } from "styled-components";
@@ -36,8 +36,9 @@ import getBusinessMenus from "../../utils/consts/menu";
 const headerHeight = 68;
 
 const StyleLogo = styled(Logo)`
-  width: 28px;
-  height: auto;
+  path {
+    fill: ${(props) => props.theme.fontPrimary};
+  }
 `;
 
 const Link = styled(LinkOrigin)`
@@ -104,17 +105,6 @@ const ExploreInput = styled(ExploreInputOrigin)`
   flex: 1;
 `;
 
-const ExplorerTitle = styled.h1`
-  font-family: "Audiowide", sans-serif; /* Applying the Audiowide font */
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: #41bb91; /* Your blockchain color */
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
-
 export default function Header() {
   const showMobileMenu = !useSelector(mobileMenuFoldedSelector);
   const dispatch = useDispatch();
@@ -143,23 +133,14 @@ export default function Header() {
             dispatch(closeMobileMenu());
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <StyleLogo />
-            <ExplorerTitle>Comstats Explorer</ExplorerTitle>
-          </div>
+          <StyleLogo />
         </Link>
 
         <PC>
           <FlexBetween style={{ flex: 1 }}>
             <MenuWrapper>
-              <Link to={"/blocks"}>
-                <MenuItem>Blocks</MenuItem>
-              </Link>
-              <Link to={"/accounts"}>
-                <MenuItem>Accounts</MenuItem>
-              </Link>
-              <Link to={"/transfers"}>
-                <MenuItem>Transfers</MenuItem>
+              <Link to={"/"}>
+                <MenuItem>Home</MenuItem>
               </Link>
               <SubMenu
                 category="BlockChain"

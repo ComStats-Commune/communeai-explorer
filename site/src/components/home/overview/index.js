@@ -61,7 +61,7 @@ function Overview() {
           />
           <OverviewItem
             icon={<AssetSquareIcon />}
-            label={`Total Free Balance (${chainSetting.symbol})`}
+            label={`Total Issuance (${chainSetting.symbol})`}
             value={
               <Tooltip
                 tip={currencify(
