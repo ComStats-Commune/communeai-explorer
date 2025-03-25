@@ -1,21 +1,21 @@
-import { ReactComponent as Commune } from "../../../components/icons/argon.svg";
+import { ReactComponent as Commune } from "../../../components/icons/commune.svg";
 
 const nodes = [
   {
-    name: "CommuneRPC0",
-    url: "wss://commune-archive-node-0.communeai.net",
+    name: "Archive Node",
+    url: "wss://commune-archive-node-1.communeai.net",
   },
 ];
 
 const commune = {
   name: "Commune",
-  icon: <Commune />,
+  icon: <Commune style={{ width: "20px", height: "auto" }} />,
   value: "commune",
   symbol: "COMAI",
   decimals: 9,
   nodes,
-  color: "#AF00C1",
-  colorSecondary: "rgba(175, 0, 193, 0.1)",
+  color: "#41BB91",
+  colorSecondary: "#114f39",
   useOnChainBlockData: true,
 };
 
