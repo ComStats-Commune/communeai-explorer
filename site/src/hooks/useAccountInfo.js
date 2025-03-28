@@ -16,6 +16,7 @@ function extractAccountInfo(accountData) {
   const { lockedBalance, lockedBreakdown, namedReserves } =
     accountData.balanceAll || {};
   const { stakingLedger } = accountData.stakingInfo || {};
+  const staked = accountData.stakedAmount || 0;
 
   const allReserves = namedReserves?.reduce((t, r) => t.concat(...r), []);
   const transferrable = calcTransferable(
@@ -41,6 +42,7 @@ function extractAccountInfo(accountData) {
         id: item.id.toHuman(),
       })),
       bonded: stakingLedger?.active?.toBigInt().toString(),
+      stakedAmount: staked.toString(),
     },
     detail: accountData.account?.toJSON(),
   };

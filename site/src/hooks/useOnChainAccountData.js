@@ -10,12 +10,18 @@ export default function useOnChainAccountData(address) {
       return;
     }
 
-    const [account, balanceAll, stakingInfo] = await Promise.all([
-      api.query.system.account(address),
-      api.derive.balances?.all(address).catch(() => null),
-      api.derive.staking?.account(address).catch(() => null),
-    ]);
-
+    const [account, balanceAll, stakingInfo, stakedAccount] = await Promise.all(
+      [
+        api.query.system.account(address),
+        api.derive.balances?.all(address).catch(() => null),
+        api.derive.staking?.account(address).catch(() => null),
+        api.query.subspaceModule.stakeTo.entries(address).catch(() => null),
+      ],
+    );
+    const stakedAmount = stakedAccount.reduce(
+      (sum, [, value]) => sum + value.toBn().toNumber(),
+      0,
+    );
     if (!account) {
       setAccountData(null);
       return;
@@ -30,6 +36,7 @@ export default function useOnChainAccountData(address) {
     setAccountData({
       systemAccount: account,
       account: accountInfo,
+      stakedAmount: stakedAmount,
       balanceAll,
       stakingInfo,
     });

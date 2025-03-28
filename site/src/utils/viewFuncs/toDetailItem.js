@@ -279,6 +279,24 @@ export const toOnChainAccountDetailItem = (
     });
   }
 
+  if (!isNil(account?.data?.stakedAmount)) {
+    data.push({
+      label: "Stake Amount",
+      value: (
+        <Flex gap={4}>
+          <ValueDisplayWithTooltip value={account?.data?.stakedAmount} />
+          {lockedBreakdown && (
+            <Tooltip tip={lockedBreakdown}>
+              <FlexCenter>
+                <CircledInfoIcon />
+              </FlexCenter>
+            </Tooltip>
+          )}
+        </Flex>
+      ),
+    });
+  }
+
   data.push({
     label: "Reserved",
     value: (
