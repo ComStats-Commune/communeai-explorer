@@ -55,7 +55,7 @@ function Accounts() {
   }, [dispatch]);
 
   const data =
-    list?.items?.map((account, index) => {
+    list?.items?.slice(page - 1 === 0 ? 8 : 0).map((account, index) => {
       return [
         `#${(parseInt(page) - 1) * pageSize + index + 1}`,
         <AlignLeft>
