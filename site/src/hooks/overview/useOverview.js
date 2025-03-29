@@ -22,31 +22,17 @@ export default function useOverview() {
 
     setIsFetching(true);
 
-    Promise.all([
-      api.fetch(overviewApi),
-      fetch("https://api-v2.comstats.org/stats/", {
-        method: "GET",
-        headers: {
-          accept: "*/*",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => data.stats)
-        .catch((err) => {
-          return null;
-        }),
-    ])
-      .then(([apiResp, stat]) => {
-        setOverview({
-          ...apiResp.result,
-          totalStake: Math.round(stat.totalStake * 1e9).toString() || null,
-        });
+    api
+      .fetch(overviewApi)
+      .then((resp) => {
+        setOverview(resp.result || {});
+
         setLoading(false);
       })
       .finally(() => {
         setIsFetching(false);
       });
-  }, [isFetching, setIsFetching, setOverview, setLoading]);
+  }, [isFetching, setOverview, setIsFetching, setLoading]);
 
   useEffectOnce(fetchOverview);
 
