@@ -75,6 +75,24 @@ function Overview() {
             }
           />
 
+          {overview.totalStake && (
+            <OverviewItem
+              icon={<AssetSquareIcon />}
+              label={`Total Stake Balance (${chainSetting.symbol})`}
+              value={
+                <Tooltip
+                  tip={currencify(
+                    Number(issuancePrecision(overview.totalStake)),
+                  )}
+                >
+                  <ValueDisplay
+                    value={issuancePrecision(overview.totalStake)}
+                  />
+                </Tooltip>
+              }
+            />
+          )}
+
           {chainSetting.para && (
             <OverviewItem
               icon={<ParaIdSquareIcon />}
